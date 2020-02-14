@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:triplen_app/bloc/home/bloc.dart';
 import 'package:triplen_app/utils/color_util.dart';
 import 'package:triplen_app/utils/shared_preferences.dart';
 
 class MainScreen extends StatelessWidget {
-  MainScreen({Key key}) : super(key: key);
+  final HomeBloc homeBloc;
+  MainScreen({Key key, this.homeBloc}) : super(key: key);
 
   SharedPreferencesHelper help = SharedPreferencesHelper();
 
@@ -32,14 +33,14 @@ class MainScreen extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Icon(
-                          Icons.monetization_on,
+                          Icons.account_circle,
                           color: Colors.yellowAccent,
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "3923",
+                          homeBloc.name,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -66,94 +67,94 @@ class MainScreen extends StatelessWidget {
                     fontSize: 28),
               ),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                margin: EdgeInsets.only(top: 15),
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 9,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Slidable(
-                      actionPane: SlidableDrawerActionPane(),
-                      actionExtentRatio: 0.25,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color(0XFFD3D6DA).withAlpha(50),
-                                  offset: Offset(0, 1),
-                                  blurRadius: 1,
-                                  spreadRadius: 1)
-                            ],
-                            color: Colors.white),
-                        child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: Container(
-                                  width: 15.0,
-                                  height: 15.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: ColorUtil.greenColor)),
-                            ),
-                            Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Liburan Ke Bali $index",
-                                    style: TextStyle(
-                                        color: ColorUtil.primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500)),
-                                Text("Liburan mulai tanggal 30 Januari",
-                                    style: TextStyle(
-                                        color: ColorUtil.greyColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal)),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: Text(
-                                "30 Jan",
-                                style: TextStyle(
-                                    color: ColorUtil.primaryColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                        movementDuration: Duration(milliseconds: 500),
-                        secondaryActions: <Widget>[
-                          SlideAction(
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: ColorUtil.TrashRedBackground),
-                              child: Icon(Icons.delete_forever),
-                            ),
-                            onTap: () => print('Delete'),
-                            color: Colors.transparent,
-                          ),
-                          ],
-                    );
-                  },
-                )),
+//            Container(
+//                padding: EdgeInsets.symmetric(horizontal: 15),
+//                margin: EdgeInsets.only(top: 15),
+//                child: ListView.builder(
+//                  physics: NeverScrollableScrollPhysics(),
+//                  itemCount: 9,
+//                  shrinkWrap: true,
+//                  itemBuilder: (context, index) {
+//                    return Slidable(
+//                      actionPane: SlidableDrawerActionPane(),
+//                      actionExtentRatio: 0.25,
+//                      child: Container(
+//                        margin: EdgeInsets.symmetric(vertical: 5),
+//                        padding: EdgeInsets.symmetric(
+//                            vertical: 15, horizontal: 15),
+//                        decoration: BoxDecoration(
+//                            borderRadius:
+//                                BorderRadius.all(Radius.circular(5)),
+//                            boxShadow: [
+//                              BoxShadow(
+//                                  color: Color(0XFFD3D6DA).withAlpha(50),
+//                                  offset: Offset(0, 1),
+//                                  blurRadius: 1,
+//                                  spreadRadius: 1)
+//                            ],
+//                            color: Colors.white),
+//                        child: Row(
+//                          mainAxisAlignment:
+//                              MainAxisAlignment.spaceAround,
+//                          crossAxisAlignment: CrossAxisAlignment.center,
+//                          children: <Widget>[
+//                            Container(
+//                              child: Container(
+//                                  width: 15.0,
+//                                  height: 15.0,
+//                                  decoration: BoxDecoration(
+//                                      shape: BoxShape.circle,
+//                                      color: ColorUtil.greenColor)),
+//                            ),
+//                            Column(
+//                              mainAxisAlignment:
+//                                  MainAxisAlignment.start,
+//                              crossAxisAlignment:
+//                                  CrossAxisAlignment.start,
+//                              children: <Widget>[
+//                                Text("Liburan Ke Bali $index",
+//                                    style: TextStyle(
+//                                        color: ColorUtil.primaryColor,
+//                                        fontSize: 16,
+//                                        fontWeight: FontWeight.w500)),
+//                                Text("Liburan mulai tanggal 30 Januari",
+//                                    style: TextStyle(
+//                                        color: ColorUtil.greyColor,
+//                                        fontSize: 14,
+//                                        fontWeight: FontWeight.normal)),
+//                              ],
+//                            ),
+//                            Container(
+//                              margin: EdgeInsets.only(left: 20),
+//                              child: Text(
+//                                "30 Jan",
+//                                style: TextStyle(
+//                                    color: ColorUtil.primaryColor,
+//                                    fontWeight: FontWeight.w500,
+//                                    fontSize: 16),
+//                              ),
+//                            )
+//                          ],
+//                        ),
+//                      ),
+//                        movementDuration: Duration(milliseconds: 500),
+//                        secondaryActions: <Widget>[
+//                          SlideAction(
+//                            child: Container(
+//                              height: 35,
+//                              width: 35,
+//                              decoration: BoxDecoration(
+//                                  borderRadius: BorderRadius.circular(50),
+//                                  color: ColorUtil.TrashRedBackground),
+//                              child: Icon(Icons.delete_forever),
+//                            ),
+//                            onTap: () => print('Delete'),
+//                            color: Colors.transparent,
+//                          ),
+//                          ],
+//                    );
+//                  },
+//                )),
             Container(
                 margin: EdgeInsets.only(top: 10),
                 height: 50,
