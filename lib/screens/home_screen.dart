@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triplen_app/screens/history_screen.dart';
 import 'package:triplen_app/screens/main_screen.dart';
 import 'package:triplen_app/screens/profile_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: ColorUtil.backgroundColor,
       body: SafeArea(
         top: true,
-        child: screen == 1 ? MainScreen() : screen == 2 ? null : ProfileScreen(),
+        child: screen == 1 ? MainScreen() : screen == 2 ? HistoryScreen() : screen == 3 ? null : ProfileScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorUtil.secondaryColor,

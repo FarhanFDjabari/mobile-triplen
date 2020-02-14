@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
+import 'package:triplen_app/screens/detail_board_page.dart';
 import 'package:triplen_app/utils/color_util.dart';
+
+import 'detail_board_page.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key key}) : super(key: key);
@@ -72,101 +75,104 @@ class MainScreen extends StatelessWidget {
                   itemCount: 9,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return Slidable(
-                      actionPane: SlidableDrawerActionPane(),
-                      actionExtentRatio: 0.25,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color(0XFFD3D6DA).withAlpha(50),
-                                  offset: Offset(0, 1),
-                                  blurRadius: 1,
-                                  spreadRadius: 1)
-                            ],
-                            color: Colors.white),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: Container(
-                                  width: 15.0,
-                                  height: 15.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: ColorUtil.greenColor)),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Liburan Ke Bali $index",
-                                    style: TextStyle(
-                                        color: ColorUtil.primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500)),
-                                Text("Liburan mulai tanggal 30 Januari",
-                                    style: TextStyle(
-                                        color: ColorUtil.greyColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal)),
+                    return InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage())),
+                      child: Slidable(
+                        actionPane: SlidableDrawerActionPane(),
+                        actionExtentRatio: 0.25,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(5)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0XFFD3D6DA).withAlpha(50),
+                                    offset: Offset(0, 1),
+                                    blurRadius: 1,
+                                    spreadRadius: 1)
                               ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: Text(
-                                "30 Jan",
-                                style: TextStyle(
-                                    color: ColorUtil.primaryColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                              color: Colors.white),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                child: Container(
+                                    width: 15.0,
+                                    height: 15.0,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: ColorUtil.greenColor)),
                               ),
-                            )
-                          ],
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text("Liburan Ke Bali $index",
+                                      style: TextStyle(
+                                          color: ColorUtil.primaryColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500)),
+                                  Text("Liburan mulai tanggal 30 Januari",
+                                      style: TextStyle(
+                                          color: ColorUtil.greyColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal)),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "30 Jan",
+                                  style: TextStyle(
+                                      color: ColorUtil.primaryColor,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
+                        movementDuration: Duration(milliseconds: 500),
+                        actions: <Widget>[
+                          InkWell(
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: ColorUtil.redColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onTap: () => Toast.show("Board Deleted", context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM),
+                          )
+                        ],
+                        secondaryActions: <Widget>[
+                          InkWell(
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: ColorUtil.BlueShadow,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.archive,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onTap: () => Toast.show("Board Archived", context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM),
+                          )
+                        ],
                       ),
-                      movementDuration: Duration(milliseconds: 500),
-                      actions: <Widget>[
-                        InkWell(
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: ColorUtil.redColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                            ),
-                          ),
-                          onTap: () => Toast.show("Board Deleted", context,
-                              duration: Toast.LENGTH_SHORT,
-                              gravity: Toast.BOTTOM),
-                        )
-                      ],
-                      secondaryActions: <Widget>[
-                        InkWell(
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: ColorUtil.BlueShadow,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.archive,
-                              color: Colors.white,
-                            ),
-                          ),
-                          onTap: () => Toast.show("Board Archived", context,
-                              duration: Toast.LENGTH_SHORT,
-                              gravity: Toast.BOTTOM),
-                        )
-                      ],
                     );
                   },
                 )),
