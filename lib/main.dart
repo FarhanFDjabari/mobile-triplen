@@ -1,8 +1,13 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:triplen_app/bloc/bloc_delegate.dart';
 import 'package:triplen_app/screens/splash_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
-void main() => runApp(MyApp());
+Future<Null> main() async {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
