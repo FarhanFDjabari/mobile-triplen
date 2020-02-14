@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:triplen_app/screens/detail_board_page.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
 class MainScreen extends StatelessWidget {
@@ -18,20 +18,30 @@ class MainScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
+                    padding:
+                        EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
                     decoration: BoxDecoration(
                         color: ColorUtil.secondaryColor,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(50),
                           bottomRight: Radius.circular(50),
-                        )
-                    ),
+                        )),
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.monetization_on, color: Colors.yellowAccent,),
-                        SizedBox(width: 5,),
-                        Text("3923", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight:
-                        FontWeight.w500),),
+                        Icon(
+                          Icons.monetization_on,
+                          color: Colors.yellowAccent,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "3923",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ],
                     ),
                   ),
@@ -47,7 +57,10 @@ class MainScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Text(
                 "Rencana-Ku",
-                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 28),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28),
               ),
             ),
             Container(
@@ -58,21 +71,27 @@ class MainScreen extends StatelessWidget {
                   itemCount: 9,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailBoardPage())),
+                    return Slidable(
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 5),
-                        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
-                              BoxShadow(color: Color(0XFFD3D6DA).withAlpha(50), offset: Offset(0, 1), blurRadius: 1,
+                              BoxShadow(
+                                  color: Color(0XFFD3D6DA).withAlpha(50),
+                                  offset: Offset(0, 1),
+                                  blurRadius: 1,
                                   spreadRadius: 1)
                             ],
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
@@ -81,47 +100,66 @@ class MainScreen extends StatelessWidget {
                                   height: 15.0,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: ColorUtil.greenColor
-                                  )),
+                                      color: ColorUtil.greenColor)),
                             ),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("Liburan Ke Bali $index", style: TextStyle(color: ColorUtil.primaryColor, fontSize:
-                                16, fontWeight: FontWeight.w500)),
-                                Text("Liburan mulai tanggal 30 Januari", style: TextStyle(color: ColorUtil
-                                    .greyColor, fontSize:
-                                14, fontWeight: FontWeight.normal)),
+                                Text("Liburan Ke Bali $index",
+                                    style: TextStyle(
+                                        color: ColorUtil.primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
+                                Text("Liburan mulai tanggal 30 Januari",
+                                    style: TextStyle(
+                                        color: ColorUtil.greyColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal)),
                               ],
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 20),
                               child: Text(
                                 "30 Jan",
-                                style: TextStyle(color: ColorUtil.primaryColor, fontWeight: FontWeight.w500,
+                                style: TextStyle(
+                                    color: ColorUtil.primaryColor,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 16),
                               ),
                             )
                           ],
                         ),
                       ),
+                        movementDuration: Duration(milliseconds: 500),
+                        secondaryActions: <Widget>[
+                          SlideAction(
+                            child: Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: ColorUtil.TrashRedBackground),
+                              child: Icon(Icons.delete_forever),
+                            ),
+                            onTap: () => print('Delete'),
+                            color: Colors.transparent,
+                          ),
+                          ],
                     );
                   },
-
-                )
-            ),
+                )),
             Container(
                 margin: EdgeInsets.only(top: 10),
                 height: 50,
                 width: 50,
                 padding: EdgeInsets.all(10),
-                child: CircularProgressIndicator()
-            )
+                child: CircularProgressIndicator())
           ],
         ),
       ),
     );
   }
-
 }

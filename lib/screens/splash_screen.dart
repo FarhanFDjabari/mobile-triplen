@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:triplen_app/screens/login_screen.dart';
+import 'package:triplen_app/screens/slider_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     const _current = Duration(seconds: 2);
     Timer(_current, () => Navigator.of(context).push(
         MaterialPageRoute(
-            builder: (context) => LoginScreen()
+            builder: (context) => intro()
         )
     ));
   }

@@ -63,19 +63,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    screen = 2;
+                  });
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Icon(Icons.history, color: ColorUtil.greyColor,),
+                  child: Icon(Icons.history, color: screen == 2 ? ColorUtil.secondaryColor : ColorUtil.greyColor,),
                 ),
               ),
             ),
             Expanded(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    screen = 3;
+                  });
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Icon(Icons.search, color: ColorUtil.greyColor,),
+                  child: Icon(Icons.search, color: screen == 3 ? ColorUtil.secondaryColor : ColorUtil.greyColor,),
                 ),
               ),
             ),
