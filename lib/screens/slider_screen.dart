@@ -4,13 +4,13 @@ import 'package:triplen_app/screens/login_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
 
-class intro extends StatefulWidget {
-  intro({Key key}) : super(key: key);
+class SliderScreen extends StatefulWidget {
+  SliderScreen({Key key}) : super(key: key);
 
-  _introState createState() => _introState();
+  _SliderScreenState createState() => _SliderScreenState();
 }
 
-class _introState extends State<intro> {
+class _SliderScreenState extends State<SliderScreen> {
   List<Slide> slides = new List();
 
   @override

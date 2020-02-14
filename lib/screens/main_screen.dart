@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:triplen_app/utils/color_util.dart';
+import 'package:triplen_app/utils/shared_preferences.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key key}) : super(key: key);
+
+  SharedPreferencesHelper help = SharedPreferencesHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class MainScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15),
               width: MediaQuery.of(context).size.width,
               child: Text(
-                "Rencana-Ku",
+                "Rencana-Ku ",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

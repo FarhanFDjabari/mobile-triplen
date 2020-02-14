@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "255399991312",
+    "firebase_url": "https://triplen-app.firebaseio.com",
+    "project_id": "triplen-app",
+    "storage_bucket": "triplen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255399991312:android:1dbb87224bfd461a47d295",
+        "android_client_info": {
+          "package_name": "id.grinaldi.triplen_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255399991312-vh1flurr0794p4nn8ikgouro2g7o9g3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.grinaldi.triplen_app",
+            "certificate_hash": "0258f584d110f28a9a98655d24d59453940fb9c8"
+          }
+        },
+        {
+          "client_id": "255399991312-n8mpsmek1jlskn5h9357ob4jtrgq89s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt9Oi_BiUuFB0bD6xrb0FF8LwOoIR-R20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255399991312-n8mpsmek1jlskn5h9357ob4jtrgq89s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
