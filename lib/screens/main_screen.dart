@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:toast/toast.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
 class MainScreen extends StatelessWidget {
@@ -76,11 +77,10 @@ class MainScreen extends StatelessWidget {
                       actionExtentRatio: 0.25,
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 5),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
                               BoxShadow(
                                   color: Color(0XFFD3D6DA).withAlpha(50),
@@ -90,8 +90,7 @@ class MainScreen extends StatelessWidget {
                             ],
                             color: Colors.white),
                         child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
@@ -103,10 +102,8 @@ class MainScreen extends StatelessWidget {
                                       color: ColorUtil.greenColor)),
                             ),
                             Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text("Liburan Ke Bali $index",
                                     style: TextStyle(
@@ -133,21 +130,43 @@ class MainScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                        movementDuration: Duration(milliseconds: 500),
-                        secondaryActions: <Widget>[
-                          SlideAction(
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: ColorUtil.TrashRedBackground),
-                              child: Icon(Icons.delete_forever),
+                      movementDuration: Duration(milliseconds: 500),
+                      actions: <Widget>[
+                        InkWell(
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: ColorUtil.redColor,
+                              shape: BoxShape.circle,
                             ),
-                            onTap: () => print('Delete'),
-                            color: Colors.transparent,
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
                           ),
-                          ],
+                          onTap: () => Toast.show("Board Deleted", context,
+                              duration: Toast.LENGTH_SHORT,
+                              gravity: Toast.BOTTOM),
+                        )
+                      ],
+                      secondaryActions: <Widget>[
+                        InkWell(
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: ColorUtil.BlueShadow,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.archive,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onTap: () => Toast.show("Board Archived", context,
+                              duration: Toast.LENGTH_SHORT,
+                              gravity: Toast.BOTTOM),
+                        )
+                      ],
                     );
                   },
                 )),
