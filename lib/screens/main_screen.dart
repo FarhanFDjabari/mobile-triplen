@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
-import 'package:triplen_app/screens/detail_board_page.dart';
+import 'package:triplen_app/bloc/home/bloc.dart';
+import 'package:triplen_app/screens/detail_board_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
+import 'package:triplen_app/utils/shared_preferences.dart';
 
-import 'detail_board_page.dart';
 
 class MainScreen extends StatelessWidget {
-  MainScreen({Key key}) : super(key: key);
+  final HomeBloc homeBloc;
+  MainScreen({Key key, this.homeBloc}) : super(key: key);
+
+  SharedPreferencesHelper help = SharedPreferencesHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +37,14 @@ class MainScreen extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Icon(
-                          Icons.monetization_on,
+                          Icons.account_circle,
                           color: Colors.yellowAccent,
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "3923",
+                          homeBloc.name,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -60,7 +64,7 @@ class MainScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15),
               width: MediaQuery.of(context).size.width,
               child: Text(
-                "Rencana-Ku",
+                "Rencana-Ku ",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
