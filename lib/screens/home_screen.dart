@@ -26,26 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<bool> _onWillPop() {
     return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Konfirmasi Keluar', style: TextStyle(fontSize: 20.0)),
-        content: Text('Apakah anda ingin keluar?'),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              // this line exits the app.
-              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-            },
-            child: Text('YA', style: TextStyle(fontSize: 18.0)),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Konfirmasi Keluar', style: TextStyle(fontSize: 20.0)),
+            content: Text('Apakah anda ingin keluar?'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                child: Text('YA', style: TextStyle(fontSize: 18.0)),
+              ),
+              FlatButton(
+                onPressed: () => Navigator.pop(context),
+                // this line dismisses the dialog
+                child: Text('TIDAK', style: TextStyle(fontSize: 18.0)),
+              )
+            ],
           ),
-          FlatButton(
-            onPressed: () => Navigator.pop(context),
-            // this line dismisses the dialog
-            child: Text('TIDAK', style: TextStyle(fontSize: 18.0)),
-          )
-        ],
-      ),
-    ) ??
+        ) ??
         false;
   }
 
@@ -53,9 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocListener(
       bloc: homeBloc,
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       child: BlocBuilder(
         bloc: homeBloc,
         builder: (context, state) {
@@ -65,8 +63,15 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: ColorUtil.backgroundColor,
               body: SafeArea(
                 top: true,
-                child: screen == 1 ? MainScreen(homeBloc: homeBloc,) : screen == 2 ? null : ProfileScreen(homeBloc:
-                homeBloc,),
+                child: screen == 1
+                    ? MainScreen(
+                        homeBloc: homeBloc,
+                      )
+                    : screen == 2
+                        ? null
+                        : ProfileScreen(
+                            homeBloc: homeBloc,
+                          ),
               ),
               floatingActionButton: FloatingActionButton(
                 backgroundColor: ColorUtil.secondaryColor,
@@ -81,13 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Icon(Icons.add, color: Colors.white),
               ),
               bottomNavigationBar: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(color: Color(0XFFD3D6DA).withAlpha(50), offset: Offset(0, -2), blurRadius: 1,
-                          spreadRadius: 1)
-                    ]
-                ),
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      color: Color(0XFFD3D6DA).withAlpha(50), offset: Offset(0, -2), blurRadius: 1, spreadRadius: 1)
+                ]),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -99,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Icon(Icons.dashboard, color: screen == 1 ? ColorUtil.secondaryColor : ColorUtil.greyColor),
+                          child: Icon(Icons.dashboard,
+                              color: screen == 1 ? ColorUtil.secondaryColor : ColorUtil.greyColor),
                         ),
                       ),
                     ),
@@ -112,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Icon(Icons.history, color: screen == 2 ? ColorUtil.secondaryColor : ColorUtil.greyColor,),
+                          child: Icon(
+                            Icons.history,
+                            color: screen == 2 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                          ),
                         ),
                       ),
                     ),
@@ -125,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Icon(Icons.search, color: screen == 3 ? ColorUtil.secondaryColor : ColorUtil.greyColor,),
+                          child: Icon(
+                            Icons.search,
+                            color: screen == 3 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                          ),
                         ),
                       ),
                     ),
@@ -138,7 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Icon(Icons.account_circle, color: screen == 4 ? ColorUtil.secondaryColor : ColorUtil.greyColor,),
+                          child: Icon(
+                            Icons.account_circle,
+                            color: screen == 4 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                          ),
                         ),
                       ),
                     )

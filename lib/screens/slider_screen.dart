@@ -32,7 +32,7 @@ class _SliderScreenState extends State<SliderScreen> {
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'),
-        pathImage: "assets/images/travelling.png",
+        pathImage: "assets/travelling.png",
         widthImage: 50,
         heightImage: 50,
         backgroundColor: Colors.white,
@@ -52,7 +52,7 @@ class _SliderScreenState extends State<SliderScreen> {
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'),
-        pathImage: "assets/images/picawal.png",
+        pathImage: "assets/picawal.png",
         backgroundColor: Colors.white,
       ),
     );
