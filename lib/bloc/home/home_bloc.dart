@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triplen_app/models/board_model.dart';
+import 'package:triplen_app/services/board_service.dart';
 
 import './bloc.dart';
 
@@ -10,6 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   String name;
   String email;
   String image;
+  List<BoardDataModel> listBoards = List<BoardDataModel>();
 
   @override
   HomeState get initialState => InitialHomeState();
@@ -41,7 +44,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     this.name = sharedPreferences.getString("USER_NAME");
     this.email = sharedPreferences.getString("USER_EMAIL");
     this.image = sharedPreferences.getString("USER_IMAGE");
-
+    BoardService boardService = BoardService();
+    List<BoardDataModel> boards = await boardService.getAllBoards();
+    this.listBoards = boards;
     yield HomeLoadedDataState();
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
 import 'package:triplen_app/bloc/home/bloc.dart';
+import 'package:triplen_app/models/board_model.dart';
 import 'package:triplen_app/screens/detail_board_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
 import 'package:triplen_app/utils/shared_preferences.dart';
@@ -75,11 +76,13 @@ class MainScreen extends StatelessWidget {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   margin: EdgeInsets.only(top: 15),
-                  child: ListView.builder(
+                  child: homeBloc.listBoards.length > 0 ?
+                  ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 9,
+                    itemCount: homeBloc.listBoards.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      BoardDataModel data = homeBloc.listBoards[index];
                       return InkWell(
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage())),
                         child: Slidable(
@@ -88,7 +91,7 @@ class MainScreen extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 5),
                             padding:
-                                EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                 boxShadow: [
@@ -115,12 +118,12 @@ class MainScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Liburan Ke Bali $index",
+                                    Text(data.board,
                                         style: TextStyle(
                                             color: ColorUtil.primaryColor,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500)),
-                                    Text("Liburan mulai tanggal 30 Januari",
+                                    Text("Liburan mulai tanggal " + data.created.toString(),
                                         style: TextStyle(
                                             color: ColorUtil.greyColor,
                                             fontSize: 14,
@@ -130,7 +133,7 @@ class MainScreen extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.only(left: 20),
                                   child: Text(
-                                    "30 Jan",
+                                    data.created.month.toString(),
                                     style: TextStyle(
                                         color: ColorUtil.primaryColor,
                                         fontWeight: FontWeight.w500,
@@ -180,13 +183,13 @@ class MainScreen extends StatelessWidget {
                         ),
                       );
                     },
-                  )),
-              Container(
-                  margin: EdgeInsets.only(top: 10),
-                  height: 50,
-                  width: 50,
-                  padding: EdgeInsets.all(10),
-                  child: CircularProgressIndicator())
+                  ) : Container(
+                      margin: EdgeInsets.only(top: 10),
+                      height: 50,
+                      width: 50,
+                      padding: EdgeInsets.all(10),
+                      child: CircularProgressIndicator())
+              ),
             ],
           ),
         ),
