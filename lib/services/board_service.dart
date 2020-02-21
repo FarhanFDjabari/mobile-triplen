@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triplen_app/models/board_detail_model.dart';
 import 'package:triplen_app/models/board_model.dart';
 
 class BoardService {
@@ -19,6 +20,23 @@ class BoardService {
       return result.data;
     } else {
       return List<BoardDataModel>();
+    }
+  }
+
+  Future<List<BoardDetailDataModel>> getDetailBoard(String id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    Response response = await request.get("https://understd.xyz/boards/" + id);
+
+    BoardDetailModel result = BoardDetailModel.fromJson(response.data);
+    if (result.status) {
+      return result.data;
+    } else {
+      return List<BoardDetailDataModel>();
     }
   }
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:indonesia/indonesia.dart';
 import 'package:toast/toast.dart';
+import 'package:triplen_app/bloc/board/bloc.dart';
 import 'package:triplen_app/bloc/home/bloc.dart';
+import 'package:triplen_app/bloc/main/bloc.dart';
 import 'package:triplen_app/models/board_model.dart';
 import 'package:triplen_app/screens/detail_board_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
@@ -10,12 +14,15 @@ import 'package:triplen_app/utils/shared_preferences.dart';
 
 class MainScreen extends StatelessWidget {
   final HomeBloc homeBloc;
+  final BoardBloc boardBloc = BoardBloc();
+  final MainBloc mainBloc = MainBloc();
   MainScreen({Key key, this.homeBloc}) : super(key: key);
 
   final SharedPreferencesHelper help = SharedPreferencesHelper();
 
   @override
   Widget build(BuildContext context) {
+    mainBloc.dispatch(LoadHomeEvent());
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -73,122 +80,154 @@ class MainScreen extends StatelessWidget {
                       fontSize: 28),
                 ),
               ),
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  margin: EdgeInsets.only(top: 15),
-                  child: homeBloc.listBoards.length > 0 ?
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: homeBloc.listBoards.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      BoardDataModel data = homeBloc.listBoards[index];
-                      return InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage())),
-                        child: Slidable(
-                          actionPane: SlidableDrawerActionPane(),
-                          actionExtentRatio: 0.25,
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color(0XFFD3D6DA).withAlpha(50),
-                                      offset: Offset(0, 1),
-                                      blurRadius: 1,
-                                      spreadRadius: 1)
-                                ],
-                                color: Colors.white),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  child: Container(
-                                      width: 15.0,
-                                      height: 15.0,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorUtil.greenColor)),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(data.board,
-                                        style: TextStyle(
-                                            color: ColorUtil.primaryColor,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Liburan mulai tanggal " + data.created.toString(),
-                                        style: TextStyle(
-                                            color: ColorUtil.greyColor,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal)),
-                                  ],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    data.created.month.toString(),
-                                    style: TextStyle(
-                                        color: ColorUtil.primaryColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+              BlocListener(
+                bloc: boardBloc,
+                listener: (context, state) {
+                  if (state is BoardDetailLoadedState) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage(boardBloc: boardBloc,)));
+                  }
+                },
+                child: BlocBuilder(
+                  bloc: mainBloc,
+                  builder: (context, state) {
+                    return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.only(top: 15),
+                        alignment: Alignment.center,
+                        child: state is HomeLoadedState ? mainBloc.listBoards.length > 0 ?
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: mainBloc.listBoards.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            BoardDataModel data = mainBloc.listBoards[index];
+                            return InkWell(
+                              highlightColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onTap: () => boardBloc.dispatch(LoadDetailBoardEvent(data: data)),
+                              child: Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.25,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 5),
+                                  padding:
+                                  EdgeInsets.symmetric(vertical: 15),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0XFFD3D6DA).withAlpha(50),
+                                            offset: Offset(0, 1),
+                                            blurRadius: 1,
+                                            spreadRadius: 1)
+                                      ],
+                                      color: Colors.white),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                          margin: EdgeInsets.symmetric(horizontal: 15),
+                                          width: 15.0,
+                                          height: 15.0,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: ColorUtil.greenColor)),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(data.board,
+                                                style: TextStyle(
+                                                    color: ColorUtil.primaryColor,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500)),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              child: Text(
+                                                "Trip mulai pada tanggal " + tanggal(data.created, shortMonth: true),
+                                                style: TextStyle(
+                                                    color: ColorUtil.greyColor,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            "Aktif",
+                                            style: TextStyle(
+                                                color: ColorUtil.greenColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                          movementDuration: Duration(milliseconds: 500),
-                          actions: <Widget>[
-                            InkWell(
-                              child: Container(
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: ColorUtil.redColor,
-                                  shape: BoxShape.circle,
                                 ),
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
+                                movementDuration: Duration(milliseconds: 500),
+                                actions: <Widget>[
+                                  InkWell(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: ColorUtil.redColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    onTap: () => Toast.show("Board Deleted", context,
+                                        duration: Toast.LENGTH_SHORT,
+                                        gravity: Toast.BOTTOM),
+                                  )
+                                ],
+                                secondaryActions: <Widget>[
+                                  InkWell(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: ColorUtil.BlueShadow,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.archive,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    onTap: () => Toast.show("Board Archived", context,
+                                        duration: Toast.LENGTH_SHORT,
+                                        gravity: Toast.BOTTOM),
+                                  )
+                                ],
                               ),
-                              onTap: () => Toast.show("Board Deleted", context,
-                                  duration: Toast.LENGTH_SHORT,
-                                  gravity: Toast.BOTTOM),
-                            )
-                          ],
-                          secondaryActions: <Widget>[
-                            InkWell(
-                              child: Container(
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: ColorUtil.BlueShadow,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.archive,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              onTap: () => Toast.show("Board Archived", context,
-                                  duration: Toast.LENGTH_SHORT,
-                                  gravity: Toast.BOTTOM),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ) : Container(
-                      margin: EdgeInsets.only(top: 10),
-                      height: 50,
-                      width: 50,
-                      padding: EdgeInsets.all(10),
-                      child: CircularProgressIndicator())
+                            );
+                          },
+                        ) :
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+                          child: Text("Tidak ada rencana.", style: TextStyle(color: ColorUtil
+                              .greyColor, fontSize: 16),),
+                        ) :
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            height: 50,
+                            width: 50,
+                            padding: EdgeInsets.all(10),
+                            child: CircularProgressIndicator())
+                    );
+                  },
+                ),
               ),
             ],
           ),
