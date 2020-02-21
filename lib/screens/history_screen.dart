@@ -17,12 +17,7 @@ class HistoryScreen extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    padding:
-                    EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
-                  ),
-                  Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
-                    width: MediaQuery.of(context).size.width,
                     child: Text(
                       "Riwayat Perjalanan",
                       style: TextStyle(
