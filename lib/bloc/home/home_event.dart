@@ -15,3 +15,11 @@ class LoadBoardsEvent extends HomeEvent {
 }
 
 class LogoutEvent extends HomeEvent {}
+
+class SwitchHomeEvent extends HomeEvent {}
+
+class SwitchHistoryEvent extends HomeEvent {}
+
+class SwitchNewsEvent extends HomeEvent {}
+
+class SwitchProfileEvent extends HomeEvent {}

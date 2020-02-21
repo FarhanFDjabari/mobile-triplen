@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "255399991312-vh1flurr0794p4nn8ikgouro2g7o9g3n.apps.googleusercontent.com",
+          "client_id": "255399991312-0kp8ckrhi1b7drto3givn0kcvl9ork2f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "id.grinaldi.triplen_app",
             "certificate_hash": "0258f584d110f28a9a98655d24d59453940fb9c8"
+          }
+        },
+        {
+          "client_id": "255399991312-7h9142ua0neb0to77mbf1rlgcvp6sko6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.grinaldi.triplen_app",
+            "certificate_hash": "434e4bcde6f25927672465765b7e7b094b98ebf8"
           }
         },
         {
