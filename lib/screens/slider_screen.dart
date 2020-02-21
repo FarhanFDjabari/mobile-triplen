@@ -20,21 +20,17 @@ class _SliderScreenState extends State<SliderScreen> {
     slides.add(
       new Slide(
         title: "",
-        styleTitle: TextStyle(
-            color: ColorUtil.BlueIcon,
-            fontSize: 10.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'opensans'),
         description:
         "Temukan pengalaman liburan dalam ponselmu",
         styleDescription: TextStyle(
-            color: ColorUtil.BlueIcon,
+            color: ColorUtil.primaryColor,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'),
         pathImage: "assets/travelling.png",
-        widthImage: 50,
-        heightImage: 50,
+        marginDescription: EdgeInsets.all(50),
+        widthImage: 200.0,
+        heightImage: 200.0,
         backgroundColor: Colors.white,
       ),
     );
@@ -48,7 +44,7 @@ class _SliderScreenState extends State<SliderScreen> {
             fontFamily: 'opensans'),
         description: "Buat aktivitas liburanmu sendiri dengan drag & drop",
         styleDescription: TextStyle(
-            color: ColorUtil.BlueIcon,
+            color: ColorUtil.primaryColor,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'),
@@ -59,15 +55,19 @@ class _SliderScreenState extends State<SliderScreen> {
     slides.add(
       new Slide(
         title: '',
-        description: '" Triplen app membuat pengalaman liburanmu menjadi lebih '
-            'seru dan menakjubkan. "',
+        marginTitle: EdgeInsets.only(top: 0),
+        marginDescription: EdgeInsets.only(top: 0),
+        description: 'Ayo Coba Sekarang!',
         styleDescription: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'
         ),
-        backgroundColor: ColorUtil.BlueIcon,
+        pathImage: "assets/undraw_travel_mode_7sf4.png",
+        heightImage: 400.0,
+        widthImage: 400.0,
+        backgroundColor: ColorUtil.secondaryColor,
       ),
     );
   }
@@ -89,7 +89,7 @@ class _SliderScreenState extends State<SliderScreen> {
   Widget renderNextBtn() {
     return Icon(
       Icons.navigate_next,
-      color: ColorUtil.BlueIcon,
+      color: ColorUtil.primaryColor,
       size: 35.0,
     );
   }
@@ -97,14 +97,14 @@ class _SliderScreenState extends State<SliderScreen> {
   Widget renderDoneBtn() {
     return Icon(
       Icons.done,
-      color: ColorUtil.BlueIcon,
+      color: ColorUtil.primaryColor,
     );
   }
 
   Widget renderSkipBtn() {
     return Icon(
       Icons.skip_next,
-      color: ColorUtil.BlueIcon,
+      color: ColorUtil.primaryColor,
     );
   }
 
@@ -128,7 +128,7 @@ class _SliderScreenState extends State<SliderScreen> {
 
       // Dot indicator
       colorDot: Colors.grey,
-      colorActiveDot: ColorUtil.BlueIcon,
+      colorActiveDot: ColorUtil.primaryColor,
       sizeDot: 13.0,
     );
   }

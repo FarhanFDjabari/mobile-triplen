@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
-class HistoryScreen extends StatelessWidget{
-  HistoryScreen({Key key}) : super (key: key);
+import 'detail_news_page.dart';
+
+class NewsScreen extends StatelessWidget {
+  NewsScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class HistoryScreen extends StatelessWidget{
                 children: <Widget>[
                   Container(
                     padding:
-                    EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
+                        EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
@@ -31,7 +33,7 @@ class HistoryScreen extends StatelessWidget{
               padding: EdgeInsets.symmetric(horizontal: 15),
               width: MediaQuery.of(context).size.width,
               child: Text(
-                "Riwayat Perjalanan",
+                "News",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -43,15 +45,16 @@ class HistoryScreen extends StatelessWidget{
                 margin: EdgeInsets.only(top: 15),
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: 9,
+                  itemCount: 5,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: (){},
                       child: Container(
+                        width: 50,
+                        height: 100,
                         margin: EdgeInsets.symmetric(vertical: 5),
                         padding:
-                        EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
@@ -71,59 +74,34 @@ class HistoryScreen extends StatelessWidget{
                                 width: 15.0,
                                 height: 15.0,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorUtil.greenColor),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                child: Icon(Icons.image),
                               ),
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("Liburan Ke Bali $index",
+                                Text("Tempat Wisata Malam di Jogja $index",
                                     style: TextStyle(
                                         color: ColorUtil.primaryColor,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500)),
-                                Text("Liburan mulai tanggal 30 Januari",
+                                Text("08/02/2020, 06:50 WIB",
                                     style: TextStyle(
-                                        color: ColorUtil.greyColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal)),
-                                Container(
-                                  child:
-                                  Text(
-                                    "24 Jan 2020 - 30 Jan 2020",
-                                    style: TextStyle(
-                                      color: ColorUtil.greyColor.withOpacity(0.8),
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  margin: EdgeInsets.only(top: 15),
+                                        color: ColorUtil.primaryColor
+                                            .withOpacity(0.2),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.normal
+                                    )
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Rp 3.000.000,-",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  margin: EdgeInsets.only(top: 2),
-                                )
                               ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: Text(
-                                "Done",
-                                style: TextStyle(
-                                    color: ColorUtil.primaryColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
-                              ),
-                            )
                           ],
                         ),
                       ),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailNewsPage())),
                     );
                   },
                 )),

@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     loginBloc.dispatch(PrepareLoginEvent());
     // TODO: implement initState
     super.initState();
-//    timer();
+    timer();
   }
 
   @override
