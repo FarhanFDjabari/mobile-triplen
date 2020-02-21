@@ -12,3 +12,9 @@ class LoadDetailBoardEvent extends BoardEvent {
 
   LoadDetailBoardEvent({this.data});
 }
+
+class DeleteBoardEvent extends BoardEvent {
+  final int id;
+
+  DeleteBoardEvent({this.id});
+}

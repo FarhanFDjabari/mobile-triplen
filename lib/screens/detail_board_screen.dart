@@ -4,12 +4,14 @@ import 'package:indonesia/indonesia.dart';
 import 'package:recase/recase.dart';
 import 'package:triplen_app/bloc/board/bloc.dart';
 import 'package:triplen_app/models/board_detail_model.dart';
+import 'package:triplen_app/models/board_model.dart';
 import 'package:triplen_app/utils/color_util.dart';
 import 'package:triplen_app/utils/screen_util.dart';
 
 class DetailBoardPage extends StatefulWidget {
   final BoardBloc boardBloc;
-  DetailBoardPage({Key key, this.boardBloc}) : super(key: key);
+  final BoardDataModel data;
+  DetailBoardPage({Key key, this.boardBloc, this.data}) : super(key: key);
 
   @override
   _DetailBoardPageState createState() => _DetailBoardPageState();
@@ -21,15 +23,15 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Liburan Ke Bali",
+          widget.data.board,
           style: TextStyle(
               fontSize: 18,
-              color: ColorUtil.primaryColor,
+              color: Colors.black,
               fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            color: ColorUtil.primaryColor,
+            color: Colors.black,
             onPressed: () => Navigator.pop(context)),
         backgroundColor: Colors.white,
         elevation: 1,
@@ -51,18 +53,18 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Belum Selesai",
+                        "Daftar Rencana",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 28),
+                            fontSize: 24),
                       ),
                       InkWell(
                         child: Container(
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: ColorUtil.primaryColor,
+                            color: ColorUtil.secondaryColor,
                           ),
                             child:
                             Icon(Icons.add, color: Colors.white,)
@@ -160,11 +162,11 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    "Sudah Selesai",
+                    "Selesai",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 28),
+                        fontSize: 24),
                   ),
                 ),
                 Container(
@@ -256,7 +258,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
             padding: EdgeInsets.symmetric(vertical: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: ColorUtil.primaryColor),
+                color: ColorUtil.secondaryColor),
             child: Text(
               "Selesai Melakukan Perjalanan",
               style:

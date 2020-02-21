@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:triplen_app/models/board_model.dart';
 
 abstract class BoardState extends Equatable {
   const BoardState();
@@ -9,4 +10,17 @@ abstract class BoardState extends Equatable {
 class InitialBoardState extends BoardState {
 }
 
-class BoardDetailLoadedState extends BoardState {}
+class BoardDetailLoadedState extends BoardState {
+  final BoardDataModel data;
+
+  BoardDetailLoadedState({this.data});
+}
+
+class BoardDeletedState extends BoardState {
+}
+
+class BoardDeletedErrorState extends BoardState {
+  final String message;
+
+  BoardDeletedErrorState({this.message});
+}

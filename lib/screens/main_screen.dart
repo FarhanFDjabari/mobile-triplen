@@ -84,7 +84,17 @@ class MainScreen extends StatelessWidget {
                 bloc: boardBloc,
                 listener: (context, state) {
                   if (state is BoardDetailLoadedState) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage(boardBloc: boardBloc,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBoardPage(boardBloc:
+                    boardBloc, data: state.data,)));
+                  } else if (state is BoardDeletedErrorState) {
+                    Toast.show(state.message, context,
+                        duration: Toast.LENGTH_SHORT,
+                        gravity: Toast.BOTTOM);
+                  } else if (state is BoardDeletedState) {
+                    mainBloc.dispatch(LoadHomeEvent());
+                    Toast.show("Board berhasil dihapus.", context,
+                        duration: Toast.LENGTH_SHORT,
+                        gravity: Toast.BOTTOM);
                   }
                 },
                 child: BlocBuilder(
@@ -186,9 +196,10 @@ class MainScreen extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    onTap: () => Toast.show("Board Deleted", context,
-                                        duration: Toast.LENGTH_SHORT,
-                                        gravity: Toast.BOTTOM),
+                                    onTap: () => boardBloc.dispatch(DeleteBoardEvent(id: data.id)),
+                                    focusColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                   )
                                 ],
                                 secondaryActions: <Widget>[
@@ -207,6 +218,9 @@ class MainScreen extends StatelessWidget {
                                     onTap: () => Toast.show("Board Archived", context,
                                         duration: Toast.LENGTH_SHORT,
                                         gravity: Toast.BOTTOM),
+                                    focusColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                   )
                                 ],
                               ),

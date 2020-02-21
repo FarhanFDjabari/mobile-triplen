@@ -19,6 +19,8 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   ) async* {
     if (event is LoadDetailBoardEvent) {
       yield* _mapEventLoadDetailBoard(event);
+    } else if (event is DeleteBoardEvent) {
+      yield* _mapEventDeleteBoard(event);
     }
   }
 
@@ -32,6 +34,22 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
         this.listDoneTask.add(task);
       }
     });
-    yield BoardDetailLoadedState();
+    yield BoardDetailLoadedState(data: event.data);
+  }
+
+  Stream<BoardState> _mapEventDeleteBoard(DeleteBoardEvent event) async* {
+    yield InitialBoardState();
+
+    BoardService boardService = BoardService();
+    try {
+      bool result = await boardService.deleteBoard(event.id.toString());
+      if (result) {
+        yield BoardDeletedState();
+      } else {
+        yield BoardDeletedErrorState(message: "Cek koneksi anda.");
+      }
+    } catch(err) {
+      yield BoardDeletedErrorState(message: err.toString());
+    }
   }
 }

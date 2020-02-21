@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Icon(Icons.dashboard,
-                        color: screen == 1 ? ColorUtil.secondaryColor : ColorUtil.greyColor),
+                        color: screen == 1 ? ColorUtil.primaryColor : ColorUtil.greyColor),
                   ),
                 ),
               ),
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Icon(
                       Icons.history,
-                      color: screen == 2 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                      color: screen == 2 ? ColorUtil.primaryColor : ColorUtil.greyColor,
                     ),
                   ),
                 ),
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Icon(
                       Icons.search,
-                      color: screen == 3 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                      color: screen == 3 ? ColorUtil.primaryColor : ColorUtil.greyColor,
                     ),
                   ),
                 ),
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Icon(
                       Icons.account_circle,
-                      color: screen == 4 ? ColorUtil.secondaryColor : ColorUtil.greyColor,
+                      color: screen == 4 ? ColorUtil.primaryColor : ColorUtil.greyColor,
                     ),
                   ),
                 ),
