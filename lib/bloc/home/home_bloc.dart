@@ -26,6 +26,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield* _mapEventLoadBoards(event);
     } else if (event is LogoutEvent) {
       yield* _mapEventLogout(event);
+    } else if (event is SwitchHomeEvent) {
+      yield HomePageState();
+    } else if (event is SwitchHistoryEvent) {
+      yield HistoryPageState();
+    } else if (event is SwitchNewsEvent) {
+      yield NewsPageState();
+    } else if (event is SwitchProfileEvent) {
+      yield ProfilePageState();
     }
   }
 
