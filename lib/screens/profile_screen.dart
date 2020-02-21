@@ -129,31 +129,6 @@ class ProfileScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        "Edit Profile",
-                                        style: TextStyle(
-                                            color: Color(0XFFA1A1A1),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal
-                                        ),
-                                      ),
-                                      Icon(Icons.chevron_right, color: ColorUtil.greyColor,)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 15),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                        top: BorderSide(color: Color(0XFFD8D8D8), width: .5),
-                                        bottom: BorderSide(color: Color(0XFFD8D8D8), width: .5),
-                                      )
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
                                         "Tentang Aplikasi",
                                         style: TextStyle(
                                             color: Color(0XFFA1A1A1),

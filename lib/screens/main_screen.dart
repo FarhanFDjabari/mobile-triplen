@@ -249,7 +249,7 @@ class MainScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorUtil.secondaryColor,
-        onPressed: () {},
+        onPressed: () => showAsBottomSheet(context),
         elevation: 1,
         hoverElevation: 3,
         focusElevation: 3,
@@ -261,4 +261,105 @@ class MainScreen extends StatelessWidget {
       ),
     );
   }
+  void showAsBottomSheet(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return Container(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          color: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(10),
+                topRight: const Radius.circular(10),
+              ),
+              color: Colors.white
+            ),
+            child: Column(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Tambah Board',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.only(bottom: 20, top: 5),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Nama Board',
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: InkWell(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 55),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: ColorUtil.secondaryColor, width: 1),
+                                  borderRadius: BorderRadius.circular(5),
+                                  ),
+                              child: Text(
+                                "Batal",
+                                style: TextStyle(
+                                    color: ColorUtil.secondaryColor,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 50),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: ColorUtil.primaryColor),
+                              child: Text(
+                                "Simpan",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    );
+  }
 }
+
+

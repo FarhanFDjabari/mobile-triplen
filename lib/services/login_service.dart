@@ -6,6 +6,7 @@ class LoginService {
   Future<UserDataModel> requestLogin(Map<String, dynamic> payload) async {
     Response response = await Dio().post('https://understd.xyz/users/signIn', data: payload);
     UserModel result = UserModel.fromJson(response.data);
+    print(response.statusCode);
     if (result.status) {
       return result.data;
     } else {
