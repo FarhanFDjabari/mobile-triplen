@@ -82,7 +82,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => showAsBottomSheet(),
+                        onTap: () {},
                         child: Slidable(
                           actionPane: SlidableDrawerActionPane(),
                           actionExtentRatio: 0.25,
@@ -156,6 +156,22 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                 ),
                               ),
                               onTap: () {},
+                            )
+                          ],
+                          secondaryActions: <Widget>[
+                            InkWell(
+                              child: Container(
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: ColorUtil.greenColor,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onTap: () => showAsBottomSheet(),
                             )
                           ],
                         ),
@@ -324,19 +340,17 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                   vertical: 12, horizontal: 55),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color:
-                                  ColorUtil.TextSubHeaderGrey.withOpacity(
-                                      0.5)),
+                                  border: Border.all(color: ColorUtil.secondaryColor, width: 1)),
                               child: Text(
                                 "Batal",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: ColorUtil.secondaryColor,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () => Navigator.pop(context),
                           ),
                           InkWell(
                             child: Container(

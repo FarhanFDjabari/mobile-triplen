@@ -41,6 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       "email": event.data.email
     };
     UserDataModel result = await loginService.requestLogin(payload);
+    print(result.toJson().toString());
     if (result.id != null) {
       await prefs.setString("USER_NAME", result.name);
       await prefs.setString("USER_EMAIL", result.email);
