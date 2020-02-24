@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:indonesia/indonesia.dart';
 import 'package:recase/recase.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:triplen_app/bloc/board/bloc.dart';
 import 'package:triplen_app/models/board_detail_model.dart';
 import 'package:triplen_app/models/board_model.dart';
@@ -191,7 +190,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                   color: Colors.white,
                                 ),
                               ),
-                              onTap: () => showAsBottomSheet(),
+                              onTap: () => showAsBottomSheet(context),
                             )
                           ],
                         ),
@@ -316,19 +315,20 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
     );
   }
 
-  void showAsBottomSheet() async {
-    final result = await showSlidingBottomSheet(context, builder: (context) {
-      return SlidingSheetDialog(
-        elevation: 8,
-        cornerRadius: 16,
-        snapSpec: const SnapSpec(
-          snap: true,
-          snappings: [0.4, 0.7, 1.0],
-          positioning: SnapPositioning.relativeToAvailableSpace,
+  void showAsBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(10),
+            topRight: const Radius.circular(10),
+          ),
         ),
-        builder: (context, state) {
+        context: context,
+        builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height/1.5,
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            color: Colors.transparent,
             child: Material(
               color: Colors.white,
               child: Column(
@@ -359,43 +359,51 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          InkWell(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 55),
-                              decoration: BoxDecoration(
+                          Expanded(
+                            child: InkWell(
+                              focusColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              child: Container(
+                                margin: EdgeInsets.only(right: 5),
+                                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 55),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: ColorUtil.secondaryColor, width: 1),
                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: ColorUtil.secondaryColor, width: 1)),
-                              child: Text(
-                                "Batal",
-                                style: TextStyle(
-                                    color: ColorUtil.secondaryColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
+                                ),
+                                child: Text(
+                                  "Batal",
+                                  style: TextStyle(
+                                      color: ColorUtil.secondaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
+                              onTap: () => Navigator.pop(context),
                             ),
-                            onTap: () => Navigator.pop(context),
                           ),
-                          InkWell(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 50),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: ColorUtil.primaryColor),
-                              child: Text(
-                                "Simpan",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
+                          Expanded(
+                            child: InkWell(
+                              focusColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              child: Container(
+                                margin: EdgeInsets.only(left: 5),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 50),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: ColorUtil.primaryColor),
+                                child: Text(
+                                  "Simpan",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
+                              onTap: () {},
                             ),
-                            onTap: () {},
                           ),
                         ],
                       ),
@@ -406,7 +414,6 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
             ),
           );
         },
-      );
-    });
+    );
   }
 }
