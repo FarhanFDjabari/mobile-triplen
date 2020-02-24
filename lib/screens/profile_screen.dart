@@ -104,9 +104,9 @@ class ProfileScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        "Top up credit",
+                                        "Upgrade to premium",
                                         style: TextStyle(
-                                            color: Color(0XFFA1A1A1),
+                                            color: Colors.orangeAccent.withOpacity(0.7),
                                             fontSize: 16,
                                             fontWeight: FontWeight.normal
                                         ),

@@ -19,25 +19,20 @@ class NewsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    padding:
-                        EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "News",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     child: Image.asset('assets/logo-light.png'),
                   )
                 ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                "News",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28),
               ),
             ),
             Container(

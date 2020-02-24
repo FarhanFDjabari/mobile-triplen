@@ -55,7 +55,7 @@ class _SliderScreenState extends State<SliderScreen> {
     slides.add(
       new Slide(
         title: '',
-        marginTitle: EdgeInsets.only(top: 0),
+        marginTitle: EdgeInsets.only(top: 0,bottom: 15),
         marginDescription: EdgeInsets.only(top: 0),
         description: 'Ayo Coba Sekarang!',
         styleDescription: TextStyle(
@@ -65,8 +65,8 @@ class _SliderScreenState extends State<SliderScreen> {
             fontFamily: 'opensans'
         ),
         pathImage: "assets/undraw_travel_mode_7sf4.png",
-        heightImage: 400.0,
-        widthImage: 400.0,
+        heightImage: 350.0,
+        widthImage: 350.0,
         backgroundColor: ColorUtil.secondaryColor,
       ),
     );
@@ -91,7 +91,7 @@ class _SliderScreenState extends State<SliderScreen> {
   }
 
   Widget renderDoneBtn() {
-    return Text("Selesai", style: TextStyle(fontSize: 12));
+    return Text("Selesai", style: TextStyle(fontSize: 12, color: Colors.white));
   }
 
   Widget renderSkipBtn() {
@@ -106,14 +106,14 @@ class _SliderScreenState extends State<SliderScreen> {
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
       onSkipPress: this.onSkipPress,
-      colorSkipBtn: Colors.white70,
+      colorSkipBtn: Colors.transparent,
       highlightColorSkipBtn: ColorUtil.BellGrey,
 
       // Next, Done button
       onDonePress: this.onDonePress,
       renderNextBtn: this.renderNextBtn(),
       renderDoneBtn: this.renderDoneBtn(),
-      colorDoneBtn: Colors.white70,
+      colorDoneBtn: Colors.transparent,
       highlightColorDoneBtn: ColorUtil.BellGrey,
       styleNameDoneBtn: TextStyle(fontSize: 12),
       styleNamePrevBtn: TextStyle(fontSize: 12),
