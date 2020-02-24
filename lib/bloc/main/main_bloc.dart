@@ -24,6 +24,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Stream<MainState> _mapEventLoadHome() async* {
     this.listBoards.clear();
     BoardService boardService = BoardService();
+    yield InitialMainState();
     List<BoardDataModel> boards = await boardService.getAllBoards();
     print(boards.toString());
     boards.forEach((board) {
@@ -31,7 +32,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         this.listBoards.add(board);
       }
     });
-    yield InitialMainState();
     yield HomeLoadedState();
   }
 }

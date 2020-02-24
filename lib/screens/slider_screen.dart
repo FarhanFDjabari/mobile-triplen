@@ -87,25 +87,15 @@ class _SliderScreenState extends State<SliderScreen> {
   }
 
   Widget renderNextBtn() {
-    return Icon(
-      Icons.navigate_next,
-      color: ColorUtil.primaryColor,
-      size: 35.0,
-    );
+    return Text("Selanjutnya", style: TextStyle(fontSize: 12));
   }
 
   Widget renderDoneBtn() {
-    return Icon(
-      Icons.done,
-      color: ColorUtil.primaryColor,
-    );
+    return Text("Selesai", style: TextStyle(fontSize: 12));
   }
 
   Widget renderSkipBtn() {
-    return Icon(
-      Icons.skip_next,
-      color: ColorUtil.primaryColor,
-    );
+    return Text("Lewati", style: TextStyle(fontSize: 12),);
   }
 
   @override
@@ -125,11 +115,14 @@ class _SliderScreenState extends State<SliderScreen> {
       renderDoneBtn: this.renderDoneBtn(),
       colorDoneBtn: Colors.white70,
       highlightColorDoneBtn: ColorUtil.BellGrey,
+      styleNameDoneBtn: TextStyle(fontSize: 12),
+      styleNamePrevBtn: TextStyle(fontSize: 12),
+      styleNameSkipBtn: TextStyle(fontSize: 12),
 
       // Dot indicator
       colorDot: Colors.grey,
       colorActiveDot: ColorUtil.primaryColor,
-      sizeDot: 13.0,
+      sizeDot: 12.0,
     );
   }
 }

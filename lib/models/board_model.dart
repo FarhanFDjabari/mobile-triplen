@@ -27,6 +27,7 @@ class BoardDataModel {
   int idUser;
   String board;
   int status;
+  String date;
   DateTime created;
 
   BoardDataModel({
@@ -34,6 +35,7 @@ class BoardDataModel {
     this.idUser,
     this.board,
     this.status,
+    this.date,
     this.created,
   });
 
@@ -42,6 +44,7 @@ class BoardDataModel {
     idUser: json["id_user"],
     board: json["board"],
     status: json["status"],
+    date: json["date"],
     created: DateTime.parse(json["created"]),
   );
 
@@ -50,6 +53,7 @@ class BoardDataModel {
     "id_user": idUser,
     "board": board,
     "status": status,
+    "date": date,
     "created": created.toIso8601String(),
   };
 }

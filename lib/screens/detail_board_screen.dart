@@ -81,7 +81,6 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2,
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   margin: EdgeInsets.only(top: 15),
                   child: widget.boardBloc.listTask.length > 0 ?
@@ -219,6 +218,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: widget.boardBloc.listDoneTask.length > 0 ?
                     ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: widget.boardBloc.listDoneTask.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -310,7 +310,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
               TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
-          ),
+          ), 
         ),
       ),
     );

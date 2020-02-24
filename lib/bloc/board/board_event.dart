@@ -18,3 +18,15 @@ class DeleteBoardEvent extends BoardEvent {
 
   DeleteBoardEvent({this.id});
 }
+
+class SelectDateTimeBoardEvent extends BoardEvent {
+  final DateTime data;
+
+  SelectDateTimeBoardEvent({this.data});
+}
+
+class AddBoardEvent extends BoardEvent {
+  final String name;
+
+  AddBoardEvent({this.name});
+}

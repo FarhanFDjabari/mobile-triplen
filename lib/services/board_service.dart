@@ -55,4 +55,20 @@ class BoardService {
       return false;
     }
   }
+
+  Future<bool> addBoard(Map<String, dynamic> payload) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    Response response = await request.post("https://understd.xyz/boards/", data: payload);
+    print(response.data.toString());
+    if (response.data['status']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

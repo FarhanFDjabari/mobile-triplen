@@ -13,7 +13,7 @@ class NewPlanPage extends StatefulWidget {
 class _NewPlanPageState extends State<NewPlanPage> {
   DateTime _dateTime = DateTime.now();
   TimeOfDay _timeOfDay = TimeOfDay.now();
-  DateFormat dateFormat = DateFormat('dd-MMM-yyyy HH:mm');
+  DateFormat dateFormat = DateFormat('yyyy-MMM-dd HH:mm:ss');
   TextEditingController _namaController = new TextEditingController();
   TextEditingController _tanggalController = new TextEditingController();
   TextEditingController _lokasiController = new TextEditingController();
@@ -40,87 +40,89 @@ class _NewPlanPageState extends State<NewPlanPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         top: true,
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 25, right: 25, top: 30, bottom: 5),
-              child: TextField(
-                decoration: InputDecoration(labelText: 'Nama Rencana'),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 25,vertical: 5),
-              child: InkWell(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(left: 25, right: 25, top: 30, bottom: 5),
                 child: TextField(
-                  onTap: () async {
-                    final selectedDate = await _selectDate(context);
-                    if (selectedDate == null) return;
+                  decoration: InputDecoration(labelText: 'Nama Rencana'),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25,vertical: 5),
+                child: InkWell(
+                  child: TextField(
+                    onTap: () async {
+                      final selectedDate = await _selectDate(context);
+                      if (selectedDate == null) return;
 
-                    final selectedTime = await _selectTime(context);
-                    if (selectedTime == null) return;
+                      final selectedTime = await _selectTime(context);
+                      if (selectedTime == null) return;
 
-                    setState(() {
-                      _dateTime = DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                        selectedTime.hour,
-                        selectedTime.minute
-                      );
-                      _tanggalController.text = dateFormat.format(_dateTime);
-                    });
-                  },
-                  readOnly: true,
-                  controller: _tanggalController,
+                      setState(() {
+                        _dateTime = DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute
+                        );
+                        _tanggalController.text = dateFormat.format(_dateTime);
+                      });
+                    },
+                    readOnly: true,
+                    controller: _tanggalController,
+                    decoration: InputDecoration(
+                      labelText: 'Tanggal/Waktu',
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                child: TextField(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChooseLocation())),
                   decoration: InputDecoration(
-                    labelText: 'Tanggal/Waktu',
-                  ),
+                      labelText: 'Lokasi',
+                      hintText: 'Nama Lokasi',
+                      hintStyle: TextStyle(fontSize: 15)),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-              child: TextField(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChooseLocation())),
-                decoration: InputDecoration(
-                    labelText: 'Lokasi',
-                    hintText: 'Nama Lokasi',
-                    hintStyle: TextStyle(fontSize: 15)),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20, left: 30, right: 30),
-              child: InkWell(
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: ColorUtil.secondaryColor),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(right: 5),
-                        child: Icon(Icons.map, color: Colors.white,),
-                      ),
-                      Text(
-                        "Pilih Lokasi",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+              Container(
+                margin: EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 50),
+                child: InkWell(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: ColorUtil.secondaryColor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(right: 5),
+                          child: Icon(Icons.map, color: Colors.white,),
+                        ),
+                        Text(
+                          "Pilih Lokasi",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChooseLocation())),
                 ),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChooseLocation())),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(

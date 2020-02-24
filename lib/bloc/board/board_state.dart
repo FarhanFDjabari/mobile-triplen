@@ -24,3 +24,19 @@ class BoardDeletedErrorState extends BoardState {
 
   BoardDeletedErrorState({this.message});
 }
+
+class DateChangedBoardState extends BoardState {
+  final DateTime data;
+
+  DateChangedBoardState({this.data});
+}
+
+class SuccessAddBoardState extends BoardState {
+
+}
+
+class FailedAddBoardState extends BoardState {
+  final String message;
+
+  FailedAddBoardState({this.message});
+}
