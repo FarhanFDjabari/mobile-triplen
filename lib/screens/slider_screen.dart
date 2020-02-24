@@ -42,7 +42,7 @@ class _SliderScreenState extends State<SliderScreen> {
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'opensans'),
-        description: "Buat aktivitas liburanmu sendiri dengan drag & drop",
+        description: "Buat aktivitas liburanmu sendiri dengan mudah dan cepat",
         styleDescription: TextStyle(
             color: ColorUtil.primaryColor,
             fontSize: 20.0,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triplen_app/screens/history_detail.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
 class HistoryScreen extends StatelessWidget{
@@ -42,7 +43,8 @@ class HistoryScreen extends StatelessWidget{
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: (){},
+                      onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HistoryDetail())),
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 5),
                         padding:
