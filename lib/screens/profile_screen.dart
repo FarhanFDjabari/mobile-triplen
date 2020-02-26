@@ -9,6 +9,16 @@ import 'package:triplen_app/utils/color_util.dart';
 class ProfileScreen extends StatelessWidget {
   final HomeBloc homeBloc;
   ProfileScreen({Key key, this.homeBloc}) : super(key: key);
+
+  _appVersion(BuildContext context) {
+    return showDialog(
+      builder: (context) => AlertDialog(
+        title: Text('Triplen App', textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0)),
+        content: Text('Version 0.0.5', textAlign: TextAlign.center,),
+      ), context: context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener(
@@ -118,6 +128,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
+                                onTap: () => _appVersion(context),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 15),
                                   decoration: BoxDecoration(
