@@ -14,8 +14,8 @@ import 'package:triplen_app/utils/shared_preferences.dart';
 
 class MainScreen extends StatelessWidget {
   final HomeBloc homeBloc;
-  final BoardBloc boardBloc = BoardBloc();
-  final MainBloc mainBloc = MainBloc();
+  BoardBloc boardBloc;
+  MainBloc mainBloc;
   final TextEditingController _namaController = new TextEditingController();
   final TextEditingController _tanggalController = new TextEditingController();
   final DateFormat dateFormat = DateFormat('dd-MMM-yyyy HH:mm');
@@ -26,6 +26,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    boardBloc = BlocProvider.of<BoardBloc>(context);
+    mainBloc = BlocProvider.of<MainBloc>(context);
     mainBloc.dispatch(LoadHomeEvent());
     return Scaffold(
       body: SingleChildScrollView(
@@ -82,15 +84,7 @@ class MainScreen extends StatelessWidget {
                   BlocListener(
                     bloc: boardBloc,
                     listener: (context, state) {
-                      if (state is BoardDetailLoadedState) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DetailBoardPage(
-                                  boardBloc: boardBloc,
-                                  data: state.data,
-                                )));
-                      } else if (state is BoardDeletedErrorState) {
+                      if (state is BoardDeletedErrorState) {
                         Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       } else if (state is BoardDeletedState) {
                         mainBloc.dispatch(LoadHomeEvent());
@@ -126,7 +120,12 @@ class MainScreen extends StatelessWidget {
                                         highlightColor: Colors.transparent,
                                         focusColor: Colors.transparent,
                                         splashColor: Colors.transparent,
-                                        onTap: () => boardBloc.dispatch(LoadDetailBoardEvent(data: data)),
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => DetailBoardPage(
+                                                  data: data,
+                                                ))),
                                         child: Slidable(
                                           actionPane: SlidableDrawerActionPane(),
                                           actionExtentRatio: 0.25,

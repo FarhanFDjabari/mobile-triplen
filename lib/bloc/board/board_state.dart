@@ -40,3 +40,15 @@ class FailedAddBoardState extends BoardState {
 
   FailedAddBoardState({this.message});
 }
+
+class ListMapsLoadedState extends BoardState {}
+
+class MapSelectedState extends BoardState {}
+
+class AddTaskSuccessState extends BoardState {}
+
+class AddTaskFailedState extends BoardState {
+  final String message;
+
+  AddTaskFailedState({this.message});
+}

@@ -16,10 +16,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int screen = 1;
-  HomeBloc homeBloc = HomeBloc();
+  HomeBloc homeBloc;
 
   @override
   void initState() {
+    homeBloc = BlocProvider.of<HomeBloc>(context);
     homeBloc.dispatch(InitialHomeEvent());
     // TODO: implement initState
     super.initState();
