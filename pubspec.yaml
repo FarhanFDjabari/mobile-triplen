@@ -44,6 +44,8 @@ dependencies:
   intl:
   keyboard_avoider: ^0.1.2
   flappy_search_bar: ^1.7.2
+  url_launcher:
+  flutter_svg: ^0.17.1
 
 dev_dependencies:
   flutter_test:
