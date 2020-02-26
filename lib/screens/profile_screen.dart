@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triplen_app/bloc/home/bloc.dart';
+import 'package:triplen_app/screens/kontak_page.dart';
 import 'package:triplen_app/screens/login_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
@@ -104,11 +105,11 @@ class ProfileScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        "Upgrade to premium",
+                                        "Premium",
                                         style: TextStyle(
                                             color: Colors.orangeAccent.withOpacity(0.7),
                                             fontSize: 16,
-                                            fontWeight: FontWeight.normal
+                                            fontWeight: FontWeight.w500
                                         ),
                                       ),
                                       Icon(Icons.chevron_right, color: ColorUtil.greyColor,)
@@ -142,6 +143,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => KontakKami())),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 15),
                                   decoration: BoxDecoration(

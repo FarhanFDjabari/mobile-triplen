@@ -197,6 +197,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                       );
                     },
                   ) : Container(
+                    padding: EdgeInsets.symmetric(horizontal: 110),
                     child: Text("Belum ada task yang dibuat", style: TextStyle(color: ColorUtil.greyColor),)),
                 ),
                 Container(

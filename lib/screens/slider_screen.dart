@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:triplen_app/screens/login_screen.dart';
@@ -87,7 +88,7 @@ class _SliderScreenState extends State<SliderScreen> {
   }
 
   Widget renderNextBtn() {
-    return Text("Selanjutnya", style: TextStyle(fontSize: 12));
+    return Text("Lanjut", style: TextStyle(fontSize: 12),);
   }
 
   Widget renderDoneBtn() {
