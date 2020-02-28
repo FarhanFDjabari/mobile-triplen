@@ -52,3 +52,21 @@ class AddTaskFailedState extends BoardState {
 
   AddTaskFailedState({this.message});
 }
+
+class TaskDeletedState extends BoardState {
+}
+
+class TaskDeletedErrorState extends BoardState {
+  final String message;
+
+  TaskDeletedErrorState({this.message});
+}
+
+class TaskUpdatedState extends BoardState {
+}
+
+class TaskUpdatedFailedState extends BoardState {
+  final String message;
+
+  TaskUpdatedFailedState({this.message});
+}

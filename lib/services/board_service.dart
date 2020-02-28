@@ -95,9 +95,42 @@ class BoardService {
     
     MapsModel mapsModel = MapsModel.fromJson(response.data);
     if (mapsModel.status == "OK") {
-      return mapsModel.candidates;
+      return mapsModel.results;
     } else {
       return List<MapsDataModel>();
+    }
+  }
+
+  Future<bool> updateDoneTask(Map<String, dynamic> payload) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    print(payload.toString());
+    Response response = await request.put("https://understd.xyz/task/finish", data: payload);
+    print(response.data.toString());
+    if (response.data['status']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deleteTask(String id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    Response response = await request.delete("https://understd.xyz/task/" + id);
+    print(response.data.toString());
+    if (response.data['status']) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

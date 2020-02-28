@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:triplen_app/models/board_detail_model.dart';
 import 'package:triplen_app/models/board_model.dart';
 import 'package:triplen_app/models/maps_model.dart';
 
@@ -49,4 +50,17 @@ class SaveTaskEvent extends BoardEvent {
   final DateTime date;
 
   SaveTaskEvent({this.name, this.id, this.date});
+}
+
+class MarkAsDoneTask extends BoardEvent {
+  final String total;
+  final BoardDetailDataModel data;
+
+  MarkAsDoneTask({this.data, this.total});
+}
+
+class DeleteTaskEvent extends BoardEvent {
+  final int id;
+
+  DeleteTaskEvent({this.id});
 }
