@@ -69,7 +69,7 @@ class HistoryScreen extends StatelessWidget{
                                 height: 15.0,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: ColorUtil.greenColor),
+                                    color: ColorUtil.greyColor),
                               ),
                             ),
                             Column(

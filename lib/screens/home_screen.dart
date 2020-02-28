@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:triplen_app/bloc/home/bloc.dart';
 import 'package:triplen_app/screens/history_screen.dart';
 import 'package:triplen_app/screens/main_screen.dart';
+import 'package:triplen_app/screens/news_screen.dart';
 import 'package:triplen_app/screens/profile_screen.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (state is HistoryPageState) {
                   return HistoryScreen();
                 } else if (state is NewsPageState) {
-                  return MainScreen(homeBloc: homeBloc,);
+                  return NewsScreen();
                 } else if (state is ProfilePageState) {
                   return ProfileScreen(homeBloc: homeBloc,);
                 } else {

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:triplen_app/utils/color_util.dart';
 
@@ -40,16 +41,17 @@ class NewsScreen extends StatelessWidget {
                 margin: EdgeInsets.only(top: 15),
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: 1,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return InkWell(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                       child: Container(
-                        width: 50,
-                        height: 100,
                         margin: EdgeInsets.symmetric(vertical: 5),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
@@ -65,38 +67,52 @@ class NewsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
+                              width: MediaQuery.of(context).size.width / 3,
                               child: Container(
-                                width: 15.0,
-                                height: 15.0,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                child: Icon(Icons.image),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5)),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    child: Image.asset(
+                                  'assets/809782487.jpg',
+                                  scale: 0.02,
+
+                                )),
                               ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Tempat Wisata Malam di Jogja $index",
-                                    style: TextStyle(
-                                        color: ColorUtil.primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500)),
-                                Text("08/02/2020, 06:50 WIB",
-                                    style: TextStyle(
-                                        color: ColorUtil.primaryColor
-                                            .withOpacity(0.2),
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.normal
-                                    )
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text("Tempat Wisata Malam di Jogja Anjay",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: ColorUtil.primaryColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500)),
+                                    Text("08/02/2020, 06:50 WIB",
+                                        style: TextStyle(
+                                            color: ColorUtil.primaryColor
+                                                .withOpacity(0.5),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.normal)),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailNewsPage())),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailNewsPage())),
                     );
                   },
                 )),
