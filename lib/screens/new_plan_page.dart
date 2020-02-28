@@ -41,6 +41,8 @@ class _NewPlanPageState extends State<NewPlanPage> {
         if (state is MapSelectedState) {
           _lokasiController.text = boardBloc.selectedMaps.formattedAddress;
         } else if (state is AddTaskSuccessState) {
+          Toast.show("Berhasil membuat rencana perjalanan.", context, duration: Toast.LENGTH_SHORT, gravity: Toast
+              .BOTTOM);
           boardBloc.dispatch(LoadDetailBoardEvent(data: widget.data));
           Navigator.pop(context);
         } else if (state is AddTaskFailedState) {

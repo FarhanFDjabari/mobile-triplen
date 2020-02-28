@@ -116,6 +116,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     this.isLoading = true;
     yield InitialBoardState();
     this.listMaps = await _boardService.searchMaps(event.query);
+    print(this.listMaps.toString());
     this.isLoading = false;
     yield ListMapsLoadedState();
   }

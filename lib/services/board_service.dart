@@ -95,7 +95,7 @@ class BoardService {
     
     MapsModel mapsModel = MapsModel.fromJson(response.data);
     if (mapsModel.status == "OK") {
-      return mapsModel.candidates;
+      return mapsModel.results;
     } else {
       return List<MapsDataModel>();
     }
