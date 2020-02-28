@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:indonesia/indonesia.dart';
@@ -22,6 +23,7 @@ class DetailBoardPage extends StatefulWidget {
 
 class _DetailBoardPageState extends State<DetailBoardPage> {
   BoardBloc boardBloc;
+  TextEditingController priceController = TextEditingController();
 
   @override
   void initState() {
@@ -36,7 +38,19 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
     return BlocListener(
       bloc: boardBloc,
       listener: (context, state) {
-
+        if (state is TaskDeletedErrorState) {
+          Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        } else if (state is TaskDeletedState) {
+          boardBloc.dispatch(LoadDetailBoardEvent(data: widget.data));
+          Toast.show("Destinasi telah dihapus.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        } else if (state is TaskUpdatedState) {
+          priceController.text = "";
+          boardBloc.dispatch(LoadDetailBoardEvent(data: widget.data));
+          Toast.show("Destinasi telah terupdate.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          Navigator.pop(context);
+        } else if (state is TaskUpdatedFailedState) {
+          Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        }
       },
       child: BlocBuilder(
         bloc: boardBloc,
@@ -202,7 +216,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    onTap: () {},
+                                    onTap: () => showDeleteAlert(context, data),
                                   )
                                 ],
                                 secondaryActions: <Widget>[
@@ -418,7 +432,8 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         margin: EdgeInsets.only(bottom: 10, top: 5),
                         child: TextFormField(
-//                            controller: _namaController,
+                          controller: priceController,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: 'Total Pengeluaran Di Destinasi',
                           ),
@@ -481,7 +496,134 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                       ],
                                     )
                                 ),
-//                                  onTap: () => boardBloc.dispatch(AddBoardEvent(name: _namaController.text)),
+                                onTap: () {
+                                  if (priceController.text.length > 0) {
+                                    boardBloc.dispatch(MarkAsDoneTask(data: data, total: priceController.text));
+                                  } else {
+                                    Toast.show("Masukkan total pengeluaran di destinasi tersebut.", context, duration:
+                                    Toast
+                                        .LENGTH_SHORT, gravity: Toast
+                                        .BOTTOM);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
+  void showDeleteAlert(BuildContext context, BoardDetailDataModel data) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(10),
+            topRight: const Radius.circular(10),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return Container(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              color: Colors.transparent,
+              child: Wrap(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 25),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              data.task,
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.close, color: Colors.black, size: 28,),
+                              onPressed: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        margin: EdgeInsets.only(bottom: 10, top: 5),
+                        child: Text("Apakah anda ingin menghapus destinasi ini?")
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 25),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: InkWell(
+                                focusColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 55),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: ColorUtil.secondaryColor, width: 1),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(
+                                    "Batal",
+                                    style: TextStyle(
+                                        color: ColorUtil.secondaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                onTap: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                focusColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                child: Container(
+                                    margin: EdgeInsets.only(left: 5),
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5), color: ColorUtil.primaryColor),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        boardBloc.addLoading ? SizedBox(
+                                          child: CircularProgressIndicator(
+                                              backgroundColor: Colors.white,
+                                              valueColor: AlwaysStoppedAnimation(ColorUtil.primaryColor)),
+                                          height: 16,
+                                          width: 16,
+                                        )
+                                            : Text(
+                                          "Simpan",
+                                          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    )
+                                ),
+                                onTap: () {
+                                  boardBloc.dispatch(DeleteTaskEvent(id: data.id));
+                                },
                               ),
                             ),
                           ],

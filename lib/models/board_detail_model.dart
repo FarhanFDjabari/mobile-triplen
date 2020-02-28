@@ -30,6 +30,7 @@ class BoardDetailDataModel {
   String location;
   int status;
   DateTime date;
+  String budget;
   String latitude;
   String longitude;
 
@@ -41,6 +42,7 @@ class BoardDetailDataModel {
     this.location,
     this.status,
     this.date,
+    this.budget,
     this.latitude,
     this.longitude,
   });
@@ -53,6 +55,7 @@ class BoardDetailDataModel {
     location: json["location"],
     status: json["status"],
     date: DateTime.parse(json["date"]),
+    budget: json["budget"],
     latitude: json["latitude"],
     longitude: json["longitude"],
   );
@@ -65,6 +68,7 @@ class BoardDetailDataModel {
     "location": location,
     "status": status,
     "date": date.toIso8601String(),
+    "budget": budget,
     "latitude": latitude,
     "longitude": longitude,
   };

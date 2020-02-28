@@ -43,6 +43,10 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
       yield* _mapSelectMaps(event);
     } else if (event is SaveTaskEvent) {
       yield* _mapSaveTask(event);
+    } else if (event is MarkAsDoneTask) {
+      yield* _mapMarkAsDone(event);
+    } else if (event is DeleteTaskEvent) {
+      yield* _mapDeleteTask(event);
     }
   }
 
@@ -152,6 +156,40 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
       this.addLoading = false;
       print(e);
       yield AddTaskFailedState(message: e.toString());
+    }
+  }
+
+  Stream<BoardState> _mapMarkAsDone(MarkAsDoneTask event) async* {
+    yield InitialBoardState();
+    Map<String, dynamic> payload = {
+      "id": event.data.id,
+      "budget": int.parse(event.total),
+    };
+
+    try {
+      bool result = await _boardService.updateDoneTask(payload);
+      if (result) {
+        yield TaskUpdatedState();
+      } else {
+        yield TaskUpdatedFailedState(message: "Gagal merubah rencana.");
+      }
+    } catch (e) {
+      yield TaskUpdatedFailedState(message: e.toString());
+    }
+  }
+
+  Stream<BoardState> _mapDeleteTask(DeleteTaskEvent event) async* {
+    yield InitialBoardState();
+
+    try {
+      bool result = await _boardService.deleteTask(event.id.toString());
+      if (result) {
+        yield TaskUpdatedState();
+      } else {
+        yield TaskUpdatedFailedState(message: "Gagal menghapus rencana.");
+      }
+    } catch (e) {
+      yield TaskUpdatedFailedState(message: e.toString());
     }
   }
 }
