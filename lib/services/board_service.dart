@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triplen_app/models/board_detail_model.dart';
 import 'package:triplen_app/models/board_model.dart';
+import 'package:triplen_app/models/history_model.dart';
 import 'package:triplen_app/models/maps_model.dart';
 
 class BoardService {
@@ -14,13 +15,30 @@ class BoardService {
       options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
       return options;
     }));
-    Response response = await request.get("https://understd.xyz/boards");
+    Response response = await request.get("https://understd.xyz/boards/filter/1");
 
     BoardModel result = BoardModel.fromJson(response.data);
     if (result.status) {
       return result.data;
     } else {
       return List<BoardDataModel>();
+    }
+  }
+
+  Future<List<HistoryDataModel>> getAllDoneBoards() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    Response response = await request.get("https://understd.xyz/boards/history/0");
+
+    HistoryModel result = HistoryModel.fromJson(response.data);
+    if (result.status) {
+      return result.data;
+    } else {
+      return List<HistoryDataModel>();
     }
   }
 
@@ -126,6 +144,22 @@ class BoardService {
       return options;
     }));
     Response response = await request.delete("https://understd.xyz/task/" + id);
+    print(response.data.toString());
+    if (response.data['status']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> updateBoards(Map<String, dynamic> payload) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    request.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+      // Do something before request is sent
+      options.headers["Authorization"] = "Bearer " + sharedPreferences.getString("ACCESS_TOKEN");
+      return options;
+    }));
+    Response response = await request.put("https://understd.xyz/boards/", data: payload);
     print(response.data.toString());
     if (response.data['status']) {
       return true;

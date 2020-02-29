@@ -73,7 +73,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       ),
                     ),
                     Expanded(
-                      child: widget.bloc.isLoading ? CircularProgressIndicator() :
+                      child: widget.bloc.isLoading ? Center(child: CircularProgressIndicator(),) :
                       widget.bloc.listMaps.length > 0 ? ListView.separated(
 //                  physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),

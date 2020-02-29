@@ -70,3 +70,14 @@ class TaskUpdatedFailedState extends BoardState {
 
   TaskUpdatedFailedState({this.message});
 }
+
+class BoardUpdatedState extends BoardState {
+}
+
+class BoardpdatedFailedState extends BoardState {
+  final String message;
+
+  BoardpdatedFailedState({this.message});
+}
+
+class HistoryDetailLoadedState extends BoardState {}

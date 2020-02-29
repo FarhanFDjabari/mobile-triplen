@@ -8,3 +8,6 @@ abstract class MainEvent extends Equatable {
 
 class LoadHomeEvent extends MainEvent {
 }
+
+class LoadHistoryEvent extends MainEvent {
+}

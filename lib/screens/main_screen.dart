@@ -88,6 +88,7 @@ class MainScreen extends StatelessWidget {
                       if (state is BoardDeletedErrorState) {
                         Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       } else if (state is BoardDeletedState) {
+                        Navigator.pop(context);
                         mainBloc.dispatch(LoadHomeEvent());
                         Toast.show("Board berhasil dihapus.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                       }
@@ -168,7 +169,7 @@ class MainScreen extends StatelessWidget {
                                                         margin: EdgeInsets.only(top: 5),
                                                         child: Text(
                                                           "Trip mulai pada tanggal " +
-                                                              tanggal(data.created, shortMonth: true),
+                                                              tanggal(data.date, shortMonth: true),
                                                           style: TextStyle(color: ColorUtil.greyColor, fontSize: 14),
                                                         ),
                                                       ),
@@ -286,7 +287,7 @@ class MainScreen extends StatelessWidget {
             bloc: boardBloc,
             listener: (context, state) {
               if (state is DateChangedBoardState) {
-                this._tanggalController.text = dateFormat.format(state.data);
+                this._tanggalController.text = tanggal(state.data);
               } else if (state is SuccessAddBoardState) {
                 Toast.show("Berhasil menambahkan board.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                 Navigator.pop(context);

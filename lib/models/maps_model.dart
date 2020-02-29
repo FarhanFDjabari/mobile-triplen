@@ -39,7 +39,6 @@ class MapsDataModel {
   String reference;
   List<String> types;
   PlusCode plusCode;
-  double rating;
   int userRatingsTotal;
   OpeningHours openingHours;
   int priceLevel;
@@ -55,7 +54,6 @@ class MapsDataModel {
         this.reference,
         this.types,
         this.plusCode,
-        this.rating,
         this.userRatingsTotal,
         this.openingHours,
         this.priceLevel});
@@ -80,7 +78,6 @@ class MapsDataModel {
     plusCode = json['plus_code'] != null
         ? new PlusCode.fromJson(json['plus_code'])
         : null;
-    rating = json['rating'];
     userRatingsTotal = json['user_ratings_total'];
     openingHours = json['opening_hours'] != null
         ? new OpeningHours.fromJson(json['opening_hours'])
@@ -106,7 +103,6 @@ class MapsDataModel {
     if (this.plusCode != null) {
       data['plus_code'] = this.plusCode.toJson();
     }
-    data['rating'] = this.rating;
     data['user_ratings_total'] = this.userRatingsTotal;
     if (this.openingHours != null) {
       data['opening_hours'] = this.openingHours.toJson();

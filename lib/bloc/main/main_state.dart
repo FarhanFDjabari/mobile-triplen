@@ -10,3 +10,5 @@ class InitialMainState extends MainState {
 }
 
 class HomeLoadedState extends MainState {}
+
+class HistoryLoadedState extends MainState {}

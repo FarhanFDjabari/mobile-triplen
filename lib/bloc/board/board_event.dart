@@ -64,3 +64,15 @@ class DeleteTaskEvent extends BoardEvent {
 
   DeleteTaskEvent({this.id});
 }
+
+class UpdateBoardEvent extends BoardEvent {
+  final BoardDataModel data;
+
+  UpdateBoardEvent({this.data});
+}
+
+class LoadDetailHistoryEvent extends BoardEvent {
+  final int id;
+
+  LoadDetailHistoryEvent({this.id});
+}

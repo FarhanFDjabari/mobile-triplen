@@ -47,6 +47,10 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
       yield* _mapMarkAsDone(event);
     } else if (event is DeleteTaskEvent) {
       yield* _mapDeleteTask(event);
+    } else if (event is UpdateBoardEvent) {
+      yield* _mapUpdateBoard(event);
+    } else if (event is LoadDetailHistoryEvent) {
+      yield* _mapLoadDetailHistory(event);
     }
   }
 
@@ -96,7 +100,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     Map<String, dynamic> payload = {
       "idUser": int.parse(_sharedPreferences.get("USER_ID")),
       "name": event.name,
-      "date": DateFormat('yyyy-MMM-dd HH:mm:ss').format(datePicked)
+      "date": DateFormat('yyyy-MM-dd HH:mm:ss').format(datePicked)
     };
 
     print(payload.toString());
@@ -191,5 +195,35 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     } catch (e) {
       yield TaskUpdatedFailedState(message: e.toString());
     }
+  }
+
+  Stream<BoardState> _mapUpdateBoard(UpdateBoardEvent event) async* {
+    yield InitialBoardState();
+    Map<String, dynamic> payload = {
+      "idUser": int.parse(_sharedPreferences.get("USER_ID")),
+      "idBoard": event.data.id,
+      "name": event.data.board,
+      "status": 0,
+    };
+
+    try {
+      bool result = await _boardService.updateBoards(payload);
+      if (result) {
+        yield BoardUpdatedState();
+      } else {
+        yield BoardpdatedFailedState(message: "Update board gagal.");
+      }
+    } catch (e) {
+      yield BoardpdatedFailedState(message: e.toString());
+    }
+  }
+
+  Stream<BoardState> _mapLoadDetailHistory(LoadDetailHistoryEvent event) async* {
+    List<BoardDetailDataModel> detailBoard = await _boardService.getDetailBoard(event.id.toString());
+    this.isLoading = false;
+    this.listDoneTask.clear();
+    yield InitialBoardState();
+    this.listDoneTask = detailBoard;
+    yield HistoryDetailLoadedState();
   }
 }

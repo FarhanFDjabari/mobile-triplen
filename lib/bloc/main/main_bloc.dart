@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:triplen_app/models/board_model.dart';
+import 'package:triplen_app/models/history_model.dart';
 import 'package:triplen_app/services/board_service.dart';
 
 import './bloc.dart';
@@ -11,6 +12,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   MainState get initialState => InitialMainState();
 
   List<BoardDataModel> listBoards = List<BoardDataModel>();
+  List<HistoryDataModel> listHistory = List<HistoryDataModel>();
 
   @override
   Stream<MainState> mapEventToState(
@@ -18,6 +20,8 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   ) async* {
     if (event is LoadHomeEvent) {
       yield* _mapEventLoadHome();
+    } else if (event is LoadHistoryEvent) {
+      yield* _mapEventLoadHistory();
     }
   }
 
@@ -33,5 +37,19 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       }
     });
     yield HomeLoadedState();
+  }
+
+  Stream<MainState> _mapEventLoadHistory() async* {
+    this.listHistory.clear();
+    BoardService boardService = BoardService();
+    yield InitialMainState();
+    List<HistoryDataModel> boards = await boardService.getAllDoneBoards();
+    print(boards.toString());
+    boards.forEach((board) {
+      if (board.status == 0) {
+        this.listHistory.add(board);
+      }
+    });
+    yield HistoryLoadedState();
   }
 }

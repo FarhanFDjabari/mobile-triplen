@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:indonesia/indonesia.dart';
+import 'package:intl/intl.dart';
 import 'package:recase/recase.dart';
 import 'package:toast/toast.dart';
 import 'package:triplen_app/bloc/board/bloc.dart';
+import 'package:triplen_app/bloc/main/bloc.dart';
 import 'package:triplen_app/models/board_detail_model.dart';
 import 'package:triplen_app/models/board_model.dart';
 import 'package:triplen_app/screens/new_plan_page.dart';
@@ -23,11 +25,13 @@ class DetailBoardPage extends StatefulWidget {
 
 class _DetailBoardPageState extends State<DetailBoardPage> {
   BoardBloc boardBloc;
+  MainBloc mainBloc;
   TextEditingController priceController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
+    mainBloc = BlocProvider.of<MainBloc>(context);
     boardBloc = BlocProvider.of<BoardBloc>(context);
     boardBloc.dispatch(LoadDetailBoardEvent(data: widget.data));
     super.initState();
@@ -49,6 +53,14 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
           Toast.show("Destinasi telah terupdate.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
           Navigator.pop(context);
         } else if (state is TaskUpdatedFailedState) {
+          Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        } else if (state is BoardUpdatedState) {
+          mainBloc.dispatch(LoadHomeEvent());
+          Toast.show("Board telah selesai dilakukan.", context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          Navigator.pop(context);
+          Navigator.pop(context);
+        } else if (state is BoardpdatedFailedState) {
+          Navigator.pop(context);
           Toast.show(state.message, context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         }
       },
@@ -325,16 +337,30 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                       ),
                                       Expanded(
                                         flex: 2,
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                          margin: EdgeInsets.only(left: 20),
-                                          child: Text(
-                                            tanggal(data.date, shortMonth: true),
-                                            style: TextStyle(
-                                                color: ColorUtil.primaryColor,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            Container(
+                                              alignment: Alignment.centerRight,
+                                              margin: EdgeInsets.only(left: 20),
+                                              child: Text(
+                                                tanggal(data.date, shortMonth: true),
+                                                style: TextStyle(
+                                                    color: ColorUtil.primaryColor,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              child: Text(NumberFormat.currency(locale: 'id', decimalDigits: 0,
+                                                  symbol: 'Rp. ').format(int.parse(data.budget)),
+                                                  style: TextStyle(
+                                                      color: ColorUtil.greyColor,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.normal)),
+                                            ),
+                                          ],
                                         ),
                                       )
                                     ],
@@ -365,7 +391,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                     Toast.show("Masih ada rencana yang belum selesai!", context, duration: Toast.LENGTH_SHORT, gravity:
                     Toast.BOTTOM);
                   } else {
-
+                    showConfirmDoneBoard(context);
                   }
                 },
                 child: Container(
@@ -501,9 +527,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                     boardBloc.dispatch(MarkAsDoneTask(data: data, total: priceController.text));
                                   } else {
                                     Toast.show("Masukkan total pengeluaran di destinasi tersebut.", context, duration:
-                                    Toast
-                                        .LENGTH_SHORT, gravity: Toast
-                                        .BOTTOM);
+                                    Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                                   }
                                 },
                               ),
@@ -565,7 +589,7 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                         child: Text("Apakah anda ingin menghapus destinasi ini?")
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 25),
+                        margin: EdgeInsets.symmetric(vertical: 10),
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -623,6 +647,126 @@ class _DetailBoardPageState extends State<DetailBoardPage> {
                                 ),
                                 onTap: () {
                                   boardBloc.dispatch(DeleteTaskEvent(id: data.id));
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
+  void showConfirmDoneBoard(BuildContext context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(10),
+            topRight: const Radius.circular(10),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return Container(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              color: Colors.transparent,
+              child: Wrap(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 25, bottom: 15),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Selesai melakukan rencana " + widget.data.board,
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.close, color: Colors.black, size: 28,),
+                              onPressed: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          margin: EdgeInsets.only(bottom: 15, top: 5),
+                          child: Text("Apakah anda yakin ingin menyelesaikan rencana ini?")
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: InkWell(
+                                focusColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 55),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: ColorUtil.secondaryColor, width: 1),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(
+                                    "Batal",
+                                    style: TextStyle(
+                                        color: ColorUtil.secondaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                onTap: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                focusColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                child: Container(
+                                    margin: EdgeInsets.only(left: 5),
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5), color: ColorUtil.primaryColor),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        boardBloc.addLoading ? SizedBox(
+                                          child: CircularProgressIndicator(
+                                              backgroundColor: Colors.white,
+                                              valueColor: AlwaysStoppedAnimation(ColorUtil.primaryColor)),
+                                          height: 16,
+                                          width: 16,
+                                        )
+                                            : Text(
+                                          "Selesai",
+                                          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    )
+                                ),
+                                onTap: () {
+                                  boardBloc.dispatch(UpdateBoardEvent(data: widget.data));
                                 },
                               ),
                             ),
