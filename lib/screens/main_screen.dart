@@ -24,6 +24,7 @@ class MainScreen extends StatelessWidget {
 
   final SharedPreferencesHelper help = SharedPreferencesHelper();
 
+
   @override
   Widget build(BuildContext context) {
     boardBloc = BlocProvider.of<BoardBloc>(context);
@@ -203,7 +204,7 @@ class MainScreen extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              onTap: () => boardBloc.dispatch(DeleteBoardEvent(id: data.id)),
+                                              onTap: () => deleteConfirmation(context, data),
                                               focusColor: Colors.transparent,
                                               splashColor: Colors.transparent,
                                               highlightColor: Colors.transparent,
@@ -439,6 +440,131 @@ class MainScreen extends StatelessWidget {
                 );
               },
             ),
+          );
+        });
+  }
+  void deleteConfirmation(BuildContext context, BoardDataModel data) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: const Radius.circular(10),
+            topRight: const Radius.circular(10),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: Container(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                color: Colors.transparent,
+                child: Wrap(
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 25),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                'Hapus Board',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.close, color: Colors.black, size: 28,),
+                                onPressed: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          margin: EdgeInsets.only(bottom: 10, top: 5),
+                          child: Text(
+                            'Apakah anda ingin menghapus board ?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 25),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: InkWell(
+                                  focusColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 55),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: ColorUtil.secondaryColor, width: 1),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Text(
+                                      "Batal",
+                                      style: TextStyle(
+                                          color: ColorUtil.secondaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  onTap: () => !boardBloc.addLoading ? Navigator.pop(context) : false,
+                                ),
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                  focusColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5), color: ColorUtil.primaryColor),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          boardBloc.addLoading ? SizedBox(
+                                            child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white,
+                                                valueColor: AlwaysStoppedAnimation(ColorUtil.primaryColor)),
+                                            height: 16,
+                                            width: 16,
+                                          )
+                                              : Text(
+                                            "Hapus",
+                                            style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  onTap: () => boardBloc.dispatch(DeleteBoardEvent(id: data.id)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                )),
           );
         });
   }

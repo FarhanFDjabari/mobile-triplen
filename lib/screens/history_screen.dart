@@ -43,6 +43,9 @@ class HistoryScreen extends StatelessWidget{
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
                       onTap: () => Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HistoryDetail())),
                       child: Container(
@@ -69,7 +72,7 @@ class HistoryScreen extends StatelessWidget{
                                 height: 15.0,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: ColorUtil.greenColor),
+                                    color: ColorUtil.greyColor),
                               ),
                             ),
                             Column(
