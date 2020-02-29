@@ -40,3 +40,33 @@ class FailedAddBoardState extends BoardState {
 
   FailedAddBoardState({this.message});
 }
+
+class ListMapsLoadedState extends BoardState {}
+
+class MapSelectedState extends BoardState {}
+
+class AddTaskSuccessState extends BoardState {}
+
+class AddTaskFailedState extends BoardState {
+  final String message;
+
+  AddTaskFailedState({this.message});
+}
+
+class TaskDeletedState extends BoardState {
+}
+
+class TaskDeletedErrorState extends BoardState {
+  final String message;
+
+  TaskDeletedErrorState({this.message});
+}
+
+class TaskUpdatedState extends BoardState {
+}
+
+class TaskUpdatedFailedState extends BoardState {
+  final String message;
+
+  TaskUpdatedFailedState({this.message});
+}
