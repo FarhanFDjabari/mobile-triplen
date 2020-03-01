@@ -43,10 +43,6 @@ class HistoryScreen extends StatelessWidget{
                                 fontSize: 28),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          child: Image.asset('assets/logo-light.png'),
-                        ),
                       ],
                     ),
                   ),

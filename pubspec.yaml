@@ -11,7 +11,7 @@ description: Buat Liburanmu Lebih Seru dan Terkontrol
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -44,7 +44,6 @@ dependencies:
   intl:
   keyboard_avoider: ^0.1.2
   flappy_search_bar: ^1.7.2
-  url_launcher:
   flutter_svg: ^0.17.1
 
 dev_dependencies:

@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
         title: Text('Triplen App',
             textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0)),
         content: Text(
-          'Version 0.0.5',
+          'Version 1.0.1',
           textAlign: TextAlign.center,
         ),
       ),
@@ -48,9 +48,6 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      child: Image.asset('assets/logo-light.png'),
-                    ),
-                    Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                       width: MediaQuery.of(context).size.width,
@@ -68,6 +65,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         color: Colors.white,
                       ),
+                      margin: EdgeInsets.all(15),
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                       child: Column(

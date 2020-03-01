@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Icon(
-                      Icons.search,
+                      Icons.info_outline,
                       color: screen == 3 ? ColorUtil.primaryColor : ColorUtil.greyColor,
                     ),
                   ),
